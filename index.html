@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>期中報告</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+    <script src="p5.js"></script>
+    <script src="sketch1.js"></script>
+    <style>
+      /* 全域樣式設定 */
+      body, html {
+        margin: 0; /* 移除瀏覽器預設邊距 */
+        padding: 0; /* 移除瀏覽器預設內邊距 */
+        overflow: hidden; /* 隱藏超出視窗的內容，避免滾動條 */
+        font-family: Arial, sans-serif; /* 設定預設字體 */
+      }
+
+      /* iframe 區域樣式 */
+      .iframe-container {
+        display: none; /* 預設隱藏 iframe 區域 */
+        position: absolute;
+        top: 50%; /* 垂直置中 */
+        left: 50%; /* 水平置中 */
+        transform: translate(-50%, -50%); /* 將內容移動到正中央 */
+        width: 80%; /* 設定 iframe 寬度為畫布的 80% */
+        height: 80%; /* 設定 iframe 高度為畫布的 80% */
+        background-color: rgba(255, 255, 255, 0.8); /* 半透明背景 */
+        z-index: 999; /* 確保在最上層 */
+        border-radius: 10px; /* 圓角邊框 */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加陰影效果 */
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none; /* 移除 iframe 的邊框 */
+        border-radius: 10px; /* 與容器一致的圓角 */
+      } 
+
+      /* 關閉按鈕樣式 */
+      .close-btn {
+        position: absolute;
+        top: 10px; /* 距離容器頂部 */
+        right: 10px; /* 距離容器右側 */
+        background-color: #ff4d4d; /* 紅色背景 */
+        color: white; /* 白色文字 */
+        border: none; /* 移除邊框 */
+        border-radius: 5px; /* 圓角 */
+        padding: 5px 10px; /* 內邊距 */
+        cursor: pointer; /* 滑鼠變成手型 */
+        font-size: 16px; /* 字體大小 */
+        z-index: 1000; /* 確保按鈕在最上層 */
+      }
+
+      .close-btn:hover {
+        background-color: #ff1a1a; /* 滑鼠懸停時的顏色 */
+      }
+    </style>
+  </head>
+
+  <body>
+    <script src="sketch.js"></script>
+    <!-- 選單 -->
+    <ul class="menu" id="menu">
+      <li>
+        首頁
+        <ul class="submenu">
+          <li><a href="#" onclick="loadIframe('https://www.et.tku.edu.tw/')">首頁</a></li>
+          <li><a href="#" onclick="loadIframe('sketch1.html')">自我介紹</a></li>
+          <li>
+            作品集
+            <ul class="submenu">
+              <li><a href="#" onclick="loadIframe('https://satomahiroforschool.github.io/20250217/')">第一周作業</a></li>
+              <li><a href="#" onclick="loadIframe('https://satomahiro.github.io/20250303/')">第二周作業</a></li>
+              <li><a href="#" onclick="loadIframe('https://satomahiro.github.io/20250310/')">第三周作業</a></li>
+              <li><a href="#" onclick="loadIframe('https://satomahiro.github.io/20250317/')">第四周作業</a></li>
+            </ul>
+          </li>
+          <li>
+            筆記
+            <ul class="submenu">
+              <li><a href="#" onclick="loadIframe('https://hackmd.io/oiodyBhZQvSD9DbmEv-7QA')">第一周筆記</a></li>
+              <li><a href="#" onclick="loadIframe('https://hackmd.io/@Fc6-UoQaRFCDhdqlQG2dTw/ByR-QKzoJg')">第二周筆記</a></li>
+              <li><a href="#" onclick="loadIframe('https://hackmd.io/@Fc6-UoQaRFCDhdqlQG2dTw/ByR-QKzoJg')">第三周筆記</a></li>
+              <li><a href="#" onclick="loadIframe('https://hackmd.io/kpK1UnZcRE2ZQqg787bkiw')">第四周筆記</a></li>
+            </ul>
+          </li>
+          <li><a href="#" onclick="loadIframe('quiz.html')">測驗卷</a></li>
+          <li><a href="#" onclick="loadIframe('videos.html')">教學影片</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- iframe 區域 -->
+    <div class="iframe-container">
+      <button class="close-btn" onclick="closeIframe()">關閉</button>
+      <iframe id="content-frame" src="" frameborder="0"></iframe>
+    </div>
+
+    <script>
+      // 動態載入 iframe 的內容
+      function loadIframe(url) {
+        const iframeContainer = document.querySelector('.iframe-container');
+        const iframe = document.getElementById('content-frame');
+        iframe.src = url;
+        iframeContainer.style.display = 'block'; // 顯示 iframe
+      }
+
+      // 關閉 iframe 的功能
+      function closeIframe() {
+        const iframeContainer = document.querySelector('.iframe-container');
+        const iframe = document.getElementById('content-frame');
+        iframe.src = ''; // 清空 iframe 的內容
+        iframeContainer.style.display = 'none'; // 隱藏 iframe
+      }
+
+      // 控制選單顯示與隱藏
+      const menu = document.getElementById('menu');
+      let isHoveringMenu = false;
+
+      // 偵測滑鼠是否在選單上
+      menu.addEventListener('mouseenter', () => {
+        isHoveringMenu = true;
+        menu.style.display = 'block'; // 顯示選單
+      });
+
+      menu.addEventListener('mouseleave', () => {
+        isHoveringMenu = false;
+      });
+
+      document.addEventListener('mousemove', (event) => {
+        if (event.clientY >= 0 && event.clientY <= 200) {
+          menu.style.display = 'block'; // 顯示選單
+        } else if (!isHoveringMenu) {
+          menu.style.display = 'none'; // 隱藏選單
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+
+/* 選單樣式 */
+.menu {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  list-style: none;
+  padding: 10px;
+  background-color: #FFDAB9; /* 淡橙色 */
+  border: 2px solid #FFDAB9; /* 邊框顏色與背景一致 */
+  border-radius: 10px; /* 圓角 */
+  width: auto;
+  display: none; /* 預設隱藏 */
+}
+
+.menu > li {
+  cursor: pointer;
+  background-color: #000000; /* 按鈕本身背景顏色設為黑色 */
+  color: #FFFFFF; /* 字體顏色設為白色 */
+  font-size: 20px;
+  text-align: left;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.menu > li:hover {
+  background-color: #21bc79; /* 按鈕滑鼠移上時背景顏色設定為綠色 */
+  color: #FFFFFF; /* 滑鼠移上時字體顏色仍為白色 */
+  border: 2px solid #FFA07A;
+}
+
+.submenu {
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu > li:hover .submenu {
+  display: block;
+}
+
+.submenu li {
+  background-color: #FFDAB9; /* 子選單背景顏色 */
+  padding: 10px 20px;
+  border-top: 1px solid #FFFFFF;
+  color: #000000; /* 字體顏色設為黑色 */
+}
+
+.submenu li:hover {
+  background-color: #FFA07A; /* 子選單滑鼠移上時背景顏色 */
+  color: #000000; /* 滑鼠移上時字體顏色仍為黑色 */
+}
+
+/* iframe 容器樣式 */
+.iframe-container {
+  display: none; /* 預設隱藏 */
+  position: fixed;
+  top: 50%; /* 垂直置中 */
+  left: 50%; /* 水平置中 */
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background-color: transparent; /* 背景透明 */
+  z-index: 1000; /* 確保在最上層 */
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  background-color: transparent; /* 背景透明 */
+  border: none; /* 移除邊框 */
+}
